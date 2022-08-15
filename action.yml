@@ -16,16 +16,12 @@ runs:
     - uses: actions/checkout@v1
     - uses: actions/setup-node@v1
       with:
-        node-version: 17
-    - name: create httpd.conf
-      run: echo "E404:index.html" > httpd.conf
+        node-version: 18
+    - name: Install dependencies via yarn
+      run: yarn
       shell: bash
-    - name: create docker file
-      run: printf "FROM lipanski/docker-static-website:2.1.0\nCOPY httpd.conf .\nCOPY dist .\nCMD [\"/busybox\", \"httpd\", \"-f\", \"-v\", \"-p\", \"3000\", \"-c\", \"httpd.conf\"]" > Dockerfile
-      shell: bash
-    - run: yarn
-      shell: bash
-    - run: yarn test
+    - name: Test
+      run: yarn test
       shell: bash
     - name: Build page
       run: VITE_VERSION=${GITHUB_REF##*/} VITE_GIT_SHA=$GITHUB_SHA yarn build
@@ -33,16 +29,22 @@ runs:
     - name: Gzip
       run: gzip -r -k dist
       shell: bash
+    - name: Create httpd.conf (required for Docker)
+      run: echo "E404:index.html" > httpd.conf
+      shell: bash
+    - name: Create docker file
+      run: printf "FROM lipanski/docker-static-website:2.1.0\nCOPY httpd.conf .\nCOPY dist .\nCMD [\"/busybox\", \"httpd\", \"-f\", \"-v\", \"-p\", \"3000\", \"-c\", \"httpd.conf\"]" > Dockerfile
+      shell: bash
     - name: Set env var
       run: echo "DOCKERHUB_URL=$(echo ghcr.io/${GITHUB_REPOSITORY,,}/${{ github.event.repository.name }})" >> $GITHUB_ENV
       shell: bash
     - name: Login to DockerHub Registry
       run: echo "${{ inputs.githubtoken }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
       shell: bash
-    - name: create docker container
+    - name: Create docker container
       run: docker build --tag $DOCKERHUB_URL:latest --tag $DOCKERHUB_URL:master --tag $DOCKERHUB_URL:${GITHUB_REF##*/} .
       shell: bash
-    - name: Push
+    - name: Push Docker
       run: docker push --all-tags $DOCKERHUB_URL
       shell: bash
   
