@@ -13,19 +13,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: actions/checkout@v1
-    - uses: actions/setup-node@v1
-      with:
-        node-version: 18
-    - name: Install dependencies via yarn
-      run: yarn
-      shell: bash
-    - name: Test
-      run: yarn test
-      shell: bash
-    - name: Build page
-      run: VITE_VERSION=${GITHUB_REF##*/} VITE_GIT_SHA=$GITHUB_SHA yarn build
-      shell: bash
+    - uses: nexys-system/gh-actions-spa-test@v0.0.2
     - name: Gzip
       run: gzip -r -k dist
       shell: bash
