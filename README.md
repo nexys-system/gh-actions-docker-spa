@@ -19,7 +19,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: nexys-system/gh-actions-docker-spa@v0.0.13
+      - uses: nexys-system/gh-actions-docker-spa@v0.0.14
 ```
 
 Assumptions (will turn into parameters later):
