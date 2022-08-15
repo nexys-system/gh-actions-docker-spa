@@ -4,8 +4,7 @@ This GitHub Action will build your vite app and turn it into a docker container
 
 Tested with vite
 
-see [https://github.com/nexys-system/gh-actions-spa-test](gh-actions-spa-test) if you only need build + test
-
+see [gh-actions-spa-test](https://github.com/nexys-system/gh-actions-spa-test) if you only need build + test
 
 ## Usage
 
