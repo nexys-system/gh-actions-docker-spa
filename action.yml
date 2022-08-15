@@ -12,7 +12,6 @@ inputs:
     description: The message to prepend the review suggestion
 runs:
   using: "composite"
-  shell: bash
   steps:
     - uses: actions/setup-node@v1
       with:
