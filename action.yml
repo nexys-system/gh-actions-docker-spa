@@ -24,7 +24,7 @@ runs:
   steps:
     - uses: nexys-system/gh-actions-spa-test@v1
       with:
-        node-version: ${{ inputs.nodeversion }}
+        nodeversion: ${{ inputs.nodeversion }}
     - name: Gzip
       run: gzip -r -k ${{ inputs.distFolder }}
       shell: bash
