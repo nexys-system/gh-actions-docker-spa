@@ -26,13 +26,13 @@ runs:
       with:
         node-version: ${{ inputs.nodeversion }}
     - name: Gzip
-      run: gzip -r -k ${{ distFolder }}
+      run: gzip -r -k ${{ inputs.distFolder }}
       shell: bash
     - name: Create httpd.conf (required for Docker)
       run: echo "E404:index.html" > httpd.conf
       shell: bash
     - name: Create docker file
-      run: printf "FROM lipanski/docker-static-website:2.1.0\nCOPY httpd.conf .\nCOPY ${{ distFolder }} .\nCMD [\"/busybox\", \"httpd\", \"-f\", \"-v\", \"-p\", \"${{ inputs.port }}\", \"-c\", \"httpd.conf\"]" > Dockerfile
+      run: printf "FROM lipanski/docker-static-website:2.1.0\nCOPY httpd.conf .\nCOPY ${{ inputs.distFolder }} .\nCMD [\"/busybox\", \"httpd\", \"-f\", \"-v\", \"-p\", \"${{ inputs.port }}\", \"-c\", \"httpd.conf\"]" > Dockerfile
       shell: bash
     - name: Set env var
       run: echo "DOCKERHUB_URL=$(echo ghcr.io/${GITHUB_REPOSITORY,,}/${{ github.event.repository.name }})" >> $GITHUB_ENV
