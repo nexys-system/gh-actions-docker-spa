@@ -4,6 +4,24 @@ This GitHub Action will build your vite app and turn it into a docker container
 
 Tested with vite
 
+
+## Usage
+
+```
+name: Docker
+
+on:
+  push:
+    tags:
+      - v*
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: nexys-system/gh-actions-docker-spa@v0.0.13
+```
+
 Assumptions (will turn into parameters later):
 
 * docker name is the one of the repo
