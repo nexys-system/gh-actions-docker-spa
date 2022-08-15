@@ -12,3 +12,4 @@ Assumptions (will turn into parameters later):
 * `yarn` is used
 * the build command is `yarn build`
 * the result of the build is in `/dist`
+* `VITE_VERSION` and `VITE_GIT_SHA` will contain the version and the sha
