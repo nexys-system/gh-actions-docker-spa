@@ -4,6 +4,8 @@ This GitHub Action will build your vite app and turn it into a docker container
 
 Tested with vite
 
+see [https://github.com/nexys-system/gh-actions-spa-test](gh-actions-spa-test) if you only need build + test
+
 
 ## Usage
 
@@ -19,7 +21,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: nexys-system/gh-actions-docker-spa@v0.0.14
+      - uses: nexys-system/gh-actions-docker-spa@v0.0.15
 ```
 
 ## Parameters
@@ -31,3 +33,5 @@ jobs:
 * the build command is `yarn build`
 * the result of the build is in `/dist`, can be overriden with `distFolder`
 * `VITE_VERSION` and `VITE_GIT_SHA` will contain the version and the sha
+
+
