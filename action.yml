@@ -34,7 +34,7 @@ runs:
     - uses: nexys-system/gh-actions-spa-test@v1.0.2
       with:
         nodeversion: ${{ inputs.nodeversion }}
-        build-command: VITE_VERSION=${GITHUB_REF##*/} VITE_GIT_SHA=$GITHUB_SHA yarn build
+        build-command: ${{ inputs.build-command }}
     - name: Gzip
       run: gzip -r -k ${{ inputs.distFolder }}
       shell: bash
