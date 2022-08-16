@@ -29,8 +29,7 @@ jobs:
 * docker runs on port 3000, can be overriden with `port`
 * index.html is the entry point, can be overriden with `html-entry`
 * `yarn` is used
-* the build command is `yarn build`
+* the default build command is `VITE_VERSION=${GITHUB_REF##*/} VITE_GIT_SHA=$GITHUB_SHA yarn build`, can be overriden with `build-command`
 * the result of the build is in `/dist`, can be overriden with `distFolder`
-* `VITE_VERSION` and `VITE_GIT_SHA` will contain the version and the sha
 
 
