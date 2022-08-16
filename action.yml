@@ -23,14 +23,18 @@ inputs:
   container-name:
     description: name of the container
     default: ${{ github.event.repository.name }}
+  build-command:
+    description: build command
+    default: VITE_VERSION=${GITHUB_REF##*/} VITE_GIT_SHA=$GITHUB_SHA yarn build
   message:
     description: The message to prepend the review suggestion
 runs:
   using: "composite"
   steps:
-    - uses: nexys-system/gh-actions-spa-test@v1
+    - uses: nexys-system/gh-actions-spa-test@v1.0.1
       with:
         nodeversion: ${{ inputs.nodeversion }}
+        build-command: VITE_VERSION=${GITHUB_REF##*/} VITE_GIT_SHA=$GITHUB_SHA yarn build
     - name: Gzip
       run: gzip -r -k ${{ inputs.distFolder }}
       shell: bash
