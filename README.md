@@ -25,11 +25,9 @@ jobs:
 
 ## Parameters
 
-* docker name is the one of the repo
-* docker runs on port 3000, can be overriden with `port`
-* index.html is the entry point, can be overriden with `html-entry`
-* `yarn` is used
-* the default build command is `VITE_VERSION=${GITHUB_REF##*/} VITE_GIT_SHA=$GITHUB_SHA yarn build`, can be overriden with `build-command`
-* the result of the build is in `/dist`, can be overriden with `distFolder`
-
-
+* `container-name`: docker name. Default: name of the repo
+* `port`: docker port. Default: `3000`
+* `html-entry`: the entry point. Default: `index.html`
+* `build-command`: build command. Default is `VITE_VERSION=${GITHUB_REF##*/} VITE_GIT_SHA=$GITHUB_SHA yarn build`
+* `distFolder`: folder with the result of the build. Default:`/dist`
+* `yarn` is used, to install and test (`yarn test`)
