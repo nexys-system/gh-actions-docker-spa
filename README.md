@@ -20,7 +20,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: nexys-system/gh-actions-docker-spa@v0.0.19
+      - uses: nexys-system/gh-actions-docker-spa@v0.0.20
 ```
 
 ## Parameters
@@ -31,3 +31,12 @@ jobs:
 * `build-command`: build command. Default is `VITE_VERSION=${GITHUB_REF##*/} VITE_GIT_SHA=$GITHUB_SHA yarn build`
 * `distFolder`: folder with the result of the build. Default:`/dist`
 * `yarn` is used, to install and test (`yarn test`)
+
+### Example 
+
+```
+- uses: nexys-system/gh-actions-docker-spa@v0.0.20
+  with:
+    build-command: VITE_VERSION=${GITHUB_REF##*/} VITE_GIT_SHA=$GITHUB_SHA yarn buildProd
+
+```
