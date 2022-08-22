@@ -40,3 +40,6 @@ jobs:
     build-command: VITE_VERSION=${GITHUB_REF##*/} VITE_GIT_SHA=$GITHUB_SHA yarn buildProd
 
 ```
+
+## License
+The scripts and documentation in this project are released under the [GNU GPLv3 License](https://github.com/nexys-system/gh-actions-docker-spa/blob/main/LICENSE).
