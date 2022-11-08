@@ -45,7 +45,7 @@ runs:
       run: printf "{\"sha\":\"$GITHUB_SHA\",\"version\":\"${GITHUB_REF##*/}\",\"date\":\"-\"}" > meta.json
       shell: bash
     - name: Create docker file
-      run: printf "FROM lipanski/docker-static-website:2.1.0\nCOPY httpd.conf .\nCOPY ${{ inputs.distFolder }} .\nCMD [\"/busybox\", \"httpd\", \"-f\", \"-v\", \"-p\", \"${{ inputs.port }}\", \"-c\", \"httpd.conf\"]" > Dockerfile
+      run: printf "FROM lipanski/docker-static-website:2.1.0\nCOPY httpd.conf .\nCOPY ${{ inputs.distFolder }} .\nCOPY meta.json .\nCMD [\"/busybox\", \"httpd\", \"-f\", \"-v\", \"-p\", \"${{ inputs.port }}\", \"-c\", \"httpd.conf\"]" > Dockerfile
       shell: bash
     - name: Set env var
       run: echo "DOCKERHUB_URL=$(echo ghcr.io/${GITHUB_REPOSITORY,,}/${{ inputs.container-name }})" >> $GITHUB_ENV
