@@ -42,7 +42,7 @@ runs:
       run: echo "E404:${{ inputs.html-entry }}" > httpd.conf
       shell: bash
     - name: Create meta json file
-      run: printf "{\"sha\":\"$GITHUB_SHA\",\"version\":\"${GITHUB_REF##*/}\",\"date\":\"-\"}" > meta.json
+      run: printf "{\"sha\":\"$GITHUB_SHA\",\"version\":\"${GITHUB_REF##*/}\",\"date\":\"$(date -u)\"}" > meta.json
       shell: bash
     - name: Create docker file
       run: printf "FROM lipanski/docker-static-website:2.1.0\nCOPY httpd.conf .\nCOPY ${{ inputs.distFolder }} .\nCOPY meta.json .\nCMD [\"/busybox\", \"httpd\", \"-f\", \"-v\", \"-p\", \"${{ inputs.port }}\", \"-c\", \"httpd.conf\"]" > Dockerfile
