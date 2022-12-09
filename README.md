@@ -20,7 +20,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: nexys-system/gh-actions-docker-spa@v0.0.20
+      - uses: nexys-system/gh-actions-docker-spa@v0.0.23
 ```
 
 ## Parameters
@@ -35,7 +35,7 @@ jobs:
 ### Example 
 
 ```
-- uses: nexys-system/gh-actions-docker-spa@v0.0.20
+- uses: nexys-system/gh-actions-docker-spa@v0.0.23
   with:
     build-command: VITE_VERSION=${GITHUB_REF##*/} VITE_GIT_SHA=$GITHUB_SHA yarn buildProd
 
