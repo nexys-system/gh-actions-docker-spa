@@ -51,12 +51,12 @@ runs:
       run: printf "FROM lipanski/docker-static-website:2.1.0\nCOPY httpd.conf .\nCOPY ${{ inputs.distFolder }} .\nCOPY meta.json .\nCMD [\"/busybox\", \"httpd\", \"-f\", \"-v\", \"-p\", \"${{ inputs.port }}\", \"-c\", \"httpd.conf\"]" > Dockerfile
       shell: bash
     - name: Set env var
-      if: ${{ inputs.dockerhub-url }} == ''
-      run: echo "DOCKERHUB_URL=$(echo ghcr.io/${GITHUB_REPOSITORY,,}/${{ inputs.container-name }})" >> $GITHUB_ENV
-      shell: bash
-    - name: Set env var
-      if: ${{ inputs.dockerhub-url }} != ''
-      run: echo "DOCKERHUB_URL=${{ inputs.dockerhub-url }}" >> $GITHUB_ENV
+      run: |
+        if [ -z "${{ inputs.dockerhub-url }}" ]; then
+          echo "DOCKERHUB_URL=ghcr.io/${GITHUB_REPOSITORY,,}/${{ inputs.container-name }}" >> $GITHUB_ENV
+        else
+          echo "DOCKERHUB_URL=${{ inputs.dockerhub-url }}" >> $GITHUB_ENV
+        fi
       shell: bash
     - name: Login to DockerHub Registry
       run: echo "${{ inputs.githubtoken }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
