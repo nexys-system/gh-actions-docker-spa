@@ -31,6 +31,9 @@ inputs:
   dockerhub-url:
     description: DockerHub URL
     required: false
+  gcp-auth:
+    description: is the need to perform authentication, it is also necessary to transfer access through env (GOOGLE_CREDENTIALS)
+    required: false
 runs:
   using: "composite"
   steps:
@@ -64,6 +67,13 @@ runs:
     - name: Create docker container
       run: docker build --tag $DOCKERHUB_URL:latest --tag $DOCKERHUB_URL:master --tag $DOCKERHUB_URL:${GITHUB_REF##*/} .
       shell: bash
+    - if: ${{ inputs.gcp-auth }} == 'true'
+      id: 'auth'
+      name: 'Authenticate to Google Cloud'
+      uses: 'google-github-actions/auth@v1'
+      with:
+        credentials_json: '${{ env.GOOGLE_CREDENTIALS }}'
+        timeout: 120
     - name: Push Docker
       run: docker push --all-tags $DOCKERHUB_URL
       shell: bash
