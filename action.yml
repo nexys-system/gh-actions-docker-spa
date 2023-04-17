@@ -32,7 +32,7 @@ inputs:
     description: DockerHub URL
     required: false
   push-image:
-    description: this flag shows: do we need push to docker registry
+    description: this flag shows do we need push to docker registry
     required: false
     default: "true"
 runs:
